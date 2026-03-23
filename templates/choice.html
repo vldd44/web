@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Варианты выбора</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        .custom_alert {
+            font-weight: bolder;
+            font-size: 25px;
+            padding-left: 0;
+            padding-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<h1 style="font-weight: bolder">Моё предложение: {{ planet_name }}!</h1>
+<p class="custom_alert">
+    {{ description }}
+</p>
+<div class="alert alert-success custom_alert">
+    {{ resources }}
+</div>
+<div class="alert alert-dark custom_alert">
+    {{ atmosphere }}
+</div>
+<div class="alert alert-warning custom_alert">
+    {{ magnetic_field }}
+</div>
+<div class="alert alert-danger custom_alert">
+    {{ beauty }}
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+</html>

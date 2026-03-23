@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="" method="post">
+    {{ form.csrf_token }}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div style="display: flex;
+                    flex-direction: row;
+                    flex-wrap: nowrap;">
+                    <img src="{{url_for('static', filename='images/mars_new.png')}}" alt="картинка марса">
+                    <h1>Аварийный доступ</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="padding: 30px;">
+                {{ form.astronaut_id.label(class="form-label") }}
+                {{ form.astronaut_id(class="form-control") }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="padding: 30px;">
+                {{ form.astronaut_password.label(class="form-label") }}
+                {{ form.astronaut_password(class="form-control") }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="padding: 30px;">
+                {{ form.captain_id.label(class="form-label") }}
+                {{ form.captain_id(class="form-control") }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="padding: 30px;">
+                {{ form.captain_password.label(class="form-label") }}
+                {{ form.captain_password(class="form-control") }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="padding: 30px;">
+                {{ form.access_button(class="btn btn-primary") }}
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
