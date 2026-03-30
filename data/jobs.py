@@ -1,8 +1,9 @@
 from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey, orm
 from .db_session import SqlAlchemyBase
+from sqlalchemy_serializer import SerializerMixin
 
 
-class Jobs(SqlAlchemyBase):
+class Jobs(SqlAlchemyBase, SerializerMixin):
     __tablename__ = 'jobs'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -14,6 +15,3 @@ class Jobs(SqlAlchemyBase):
     end_date = Column(DateTime)
     is_finished = Column(Boolean)
     user = orm.relationship('User')
-
-    def __repr__(self):
-        print("<job>", self.job)

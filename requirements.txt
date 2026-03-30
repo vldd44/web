@@ -10,3 +10,4 @@ Flask-WTF==1.2.2
 greenlet==3.3.2
 wtforms==3.2.1
 typing-extensions==4.15.0
+flask-login==0.6.3

@@ -1,15 +1,35 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, jsonify
 from data import db_session
-from data.db_session import create_session
 from data.jobs import Jobs
 from data.users import User
-from forms.JobsForm import JobsForm
 from forms.Login_form import LoginForm
+from flask_login import LoginManager, login_user, login_required, logout_user
 import flask_wtf
+from flask_restful import reqparse, abort, Api, Resource
+from flask import make_response
+from forms.jobs_form import JobsForm
+from forms.registration_form import RegistrationForm
+from res.jobs_res import JobsRes
+from res.jobs_res import JobsListRes
+from res.users_res import UsersResource, UsersListResource
 
 app = Flask(__name__)
+api = Api(app)
+api.add_resource(JobsRes, "/api/v2/jobs<int:jobs_id>")
+api.add_resource(JobsListRes, "/api/v2/jobs")
+api.add_resource(UsersResource, "/api/v2/users<int:user_id>")
+api.add_resource(UsersListResource, "/api/v2/users")
 
 app.config["SECRET_KEY"] = "password1921"
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+@login_manager.user_loader
+def user_loader(user_id):
+    session = db_session.create_session()
+    return session.get(User, user_id)
 
 
 @app.route("/")
@@ -20,7 +40,9 @@ def index():
         User,
         Jobs.team_leader == User.id
     )
-    return render_template("index.html", title="", result=result)
+    for i in result:
+        print(i)
+    return render_template("index.html", title="Это база", result=result)
 
 
 @app.route("/promotion")
@@ -157,26 +179,67 @@ def answer():
 def login():
     login_form = LoginForm()
     if login_form.validate_on_submit():
-        return redirect("/")
+        session = db_session.create_session()
+        user = session.query(User).filter(
+            User.email == login_form.email.data
+        ).first()
+        if user and user.check_password(login_form.password.data):
+            login_user(user, login_form.remember_me.data)
+            return redirect("/")
+        else:
+            return render_template("login.html", form=login_form,
+                                   message="Пользователь не существует.")
     return render_template("login.html", form=login_form)
 
-@app.route('/addjob', methods=['GET', 'POST'])
+
+@app.route("/registration", methods=["GET", "POST"])
+def registration():
+    registration_form = RegistrationForm()
+    if registration_form.validate_on_submit():
+        db_sess = db_session.create_session()
+        new_user = User()
+        new_user.surname = registration_form.surname.data
+        new_user.name = registration_form.name.data
+        new_user.age = registration_form.age.data
+        new_user.position = registration_form.position.data
+        new_user.speciality = registration_form.speciality.data
+        new_user.address = registration_form.address.data
+        new_user.email = registration_form.email.data
+        new_user.hash_password(registration_form.password.data)
+        db_sess.add(new_user)
+        db_sess.commit()
+        return redirect("/login")
+
+    return render_template("registration.html", form=registration_form, title="Регистрация")
+
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
+
+
+@app.route("/addjob", methods=["GET", "POST"])
+@login_required
 def add_job():
     jobs_form = JobsForm()
     if jobs_form.validate_on_submit():
-        job = Jobs(job=jobs_form.job.data,
-                   team_leader=jobs_form.team_leader.data,
-                   work_size=jobs_form.work_size.data,
-                   collaborators=jobs_form.collaborators.data,
-                   is_finished=jobs_form.is_finished.data)
-        session = create_session()
-        session.add(job)
-        session.commit()
-        session.close()
-        return redirect('/')
-    else:
-        return render_template('addjob.html',
-                               title='Adding a job', form=jobs_form)
+        db_sess = db_session.create_session()
+        new_job = Jobs()
+        new_job.job = jobs_form.job.data
+        new_job.team_leader = jobs_form.team_leader.data
+        new_job.work_size = jobs_form.work_size.data
+        new_job.collaborators = jobs_form.collaborators.data
+        if jobs_form.is_finished.data:
+            new_job.is_finished = 1
+        else:
+            new_job.is_finished = 0
+        db_sess.add(new_job)
+        db_sess.commit()
+        return redirect("/")
+    return render_template("addjob.html", form=jobs_form, title="Adding a job")
+
 
 @app.route("/load_photo", methods=['POST', 'GET'])
 def load_photo():
@@ -190,6 +253,26 @@ def load_photo():
         except Exception as e:
             print(e)
         return render_template("load_photo.html")
+
+
+@app.route("/jobs", methods=["GET", "POST"])
+def jobs():
+    pass
+
+
+@app.route("/jobs/<id>", methods=["GET", "DELETE", "PUT"])
+def jobs_red(id):
+    pass
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
+
+@app.errorhandler(400)
+def bad_request(_):
+    return make_response(jsonify({'error': 'Bad Request'}), 400)
+
 
 
 if __name__ == "__main__":

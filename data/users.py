@@ -1,8 +1,11 @@
 from sqlalchemy import Column, Integer, String, DateTime, orm
+from flask_login import UserMixin
+from sqlalchemy.util import md5_hex
+from hashlib import md5
 from .db_session import SqlAlchemyBase
 
 
-class User(SqlAlchemyBase):
+class User(SqlAlchemyBase, UserMixin):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -20,3 +23,9 @@ class User(SqlAlchemyBase):
 
     def __repr__(self):
         return f'<Colonist> {self.id} {self.surname} {self.name}'
+
+    def hash_password(self, password):
+        self.hashed_password = md5(password.encode()).hexdigest()
+
+    def check_password(self, password):
+        return self.hashed_password == md5(password.encode()).hexdigest()
