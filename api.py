@@ -50,9 +50,9 @@ def one_jobs(job_id):
             Jobs.id == job_id
         ).first()
         return jsonify(jobs_item.to_dict(
-                    only=("id", "team_leader",
-                          "job", "work_size",
-                          "collaborators", "start_date",
-                          "end_date", "is_finished")
-                ))
+            only=("id", "team_leader",
+                  "job", "work_size",
+                  "collaborators", "start_date",
+                  "end_date", "is_finished")
+        ))
     return jsonify({"error": "Method Not Allowed"}), 405

@@ -1,24 +1,27 @@
-from flask import Flask, render_template, redirect, request, jsonify
+from flask import Flask, render_template, redirect, request, make_response, jsonify
 from data import db_session
 from data.jobs import Jobs
 from data.users import User
 from forms.Login_form import LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user
 import flask_wtf
+
 from flask_restful import reqparse, abort, Api, Resource
-from flask import make_response
+
+# from api import api
+
 from forms.jobs_form import JobsForm
 from forms.registration_form import RegistrationForm
-from res.jobs_res import JobsRes
-from res.jobs_res import JobsListRes
-from res.users_res import UsersResource, UsersListResource
+from resources.jobs_resources import JobsResource, JobsListResource
+from resources.users_resource import UserResource, UserListResource
 
 app = Flask(__name__)
+# app.register_blueprint(api)
 api = Api(app)
-api.add_resource(JobsRes, "/api/v2/jobs<int:jobs_id>")
-api.add_resource(JobsListRes, "/api/v2/jobs")
-api.add_resource(UsersResource, "/api/v2/users<int:user_id>")
-api.add_resource(UsersListResource, "/api/v2/users")
+api.add_resource(JobsResource, "/api/v2/jobs/<int:jobs_id>")
+api.add_resource(JobsListResource, "/api/v2/jobs")
+api.add_resource(UserResource, "/api/v2/users/<int:user_id>")
+api.add_resource(UserListResource, "/api/v2/users")
 
 app.config["SECRET_KEY"] = "password1921"
 
@@ -264,6 +267,7 @@ def jobs():
 def jobs_red(id):
     pass
 
+
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
@@ -272,7 +276,6 @@ def not_found(error):
 @app.errorhandler(400)
 def bad_request(_):
     return make_response(jsonify({'error': 'Bad Request'}), 400)
-
 
 
 if __name__ == "__main__":
