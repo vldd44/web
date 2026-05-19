@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<<<<<<< HEAD
 <h2>Колонисты</h2>
 <table class="table table-bordered mb-5">
     <thead>
@@ -75,4 +76,46 @@
         {% endfor %}
     </tbody>
 </table>
+=======
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2 class="text-center">Works log</h2>
+        </div>
+    </div>
+    {% for jobs, user in result %}
+    <div class="row">
+        <div class="col">
+            <h3>Action # {{ jobs.id }}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <tr class="table-secondary">
+                    <th>Title of activity</th>
+                    <th>Team leader</th>
+                    <th>Duration</th>
+                    <th>List of collaborators</th>
+                    <th>is finnished</th>
+                </tr>
+                <tr class="table-primary">
+                    <td>{{ jobs.job }}</td>
+                    <td>{{ user.surname }} {{ user.name }}</td>
+                    <td>{{ jobs.work_size }} hours</td>
+                    <td>{{ jobs.collaborators }}</td>
+                    {% if jobs.is_finished %}
+                    <td class="table-success">Is finished</td>
+                    {% else %}
+                    <td class="table-danger">Is not finished</td>
+                    {% endif %}
+                </tr>
+            </table>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+>>>>>>> f80b3e89f58f152c46ecada6a4826b4c8c0ba58f
 {% endblock %}

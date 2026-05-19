@@ -1,8 +1,12 @@
 from data import db_session
 from data.users import User
 from flask_restful import abort, Resource
+<<<<<<< HEAD
 from flask import jsonify, request
 from hashlib import md5
+=======
+from flask import jsonify
+>>>>>>> f80b3e89f58f152c46ecada6a4826b4c8c0ba58f
 
 
 def abort_if_users_not_found(user_id):
@@ -25,6 +29,7 @@ class UserResource(Resource):
     def delete(self, user_id):
         abort_if_users_not_found(user_id)
         session = db_session.create_session()
+<<<<<<< HEAD
         user = session.query(User).get(user_id)
         session.delete(user)
         session.commit()
@@ -56,6 +61,10 @@ class UserResource(Resource):
         if "password" in args:
             user.hashed_password = md5(args["password"].encode()).hexdigest()
 
+=======
+        jobs = session.query(User).get(user_id)
+        session.delete(jobs)
+>>>>>>> f80b3e89f58f152c46ecada6a4826b4c8c0ba58f
         session.commit()
         return jsonify({"success": "ok"})
 
@@ -74,6 +83,7 @@ class UserListResource(Resource):
                 ) for user in users
             ]
         })
+<<<<<<< HEAD
 
     def post(self):
         args = request.json
@@ -93,3 +103,5 @@ class UserListResource(Resource):
         session.add(user)
         session.commit()
         return jsonify({"id": user.id})
+=======
+>>>>>>> f80b3e89f58f152c46ecada6a4826b4c8c0ba58f

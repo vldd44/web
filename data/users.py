@@ -19,10 +19,15 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     email = Column(String, unique=True)
     hashed_password = Column(String)
     modified_date = Column(DateTime)
+<<<<<<< HEAD
     city_from = Column(String)
 
     jobs = orm.relationship('Jobs', back_populates='user')
     departments = orm.relationship('Department', back_populates='user')
+=======
+
+    jobs = orm.relationship('Jobs', back_populates='user')
+>>>>>>> f80b3e89f58f152c46ecada6a4826b4c8c0ba58f
 
     def __repr__(self):
         return f'<Colonist> {self.id} {self.surname} {self.name}'

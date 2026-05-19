@@ -1,25 +1,40 @@
+<<<<<<< HEAD
 import os
 import json
 import random
 import requests
+=======
+>>>>>>> f80b3e89f58f152c46ecada6a4826b4c8c0ba58f
 from flask import Flask, render_template, redirect, request, make_response, jsonify
 from data import db_session
 from data.jobs import Jobs
 from data.users import User
+<<<<<<< HEAD
 from data.departments import Department
 from forms.department_form import DepartmentForm
+=======
+>>>>>>> f80b3e89f58f152c46ecada6a4826b4c8c0ba58f
 from forms.Login_form import LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user
 import flask_wtf
 
 from flask_restful import reqparse, abort, Api, Resource
 
+<<<<<<< HEAD
+=======
+# from api import api
+
+>>>>>>> f80b3e89f58f152c46ecada6a4826b4c8c0ba58f
 from forms.jobs_form import JobsForm
 from forms.registration_form import RegistrationForm
 from resources.jobs_resources import JobsResource, JobsListResource
 from resources.users_resource import UserResource, UserListResource
 
 app = Flask(__name__)
+<<<<<<< HEAD
+=======
+# app.register_blueprint(api)
+>>>>>>> f80b3e89f58f152c46ecada6a4826b4c8c0ba58f
 api = Api(app)
 api.add_resource(JobsResource, "/api/v2/jobs/<int:jobs_id>")
 api.add_resource(JobsListResource, "/api/v2/jobs")
@@ -42,6 +57,7 @@ def user_loader(user_id):
 @app.route("/index")
 def index():
     session = db_session.create_session()
+<<<<<<< HEAD
     jobs = session.query(Jobs).all()
     users = session.query(User).all()
     return render_template("index.html", title="Главная", jobs=jobs, users=users)
@@ -75,6 +91,15 @@ def cabin_table():
         martian_image = "images/mars_new.png"
 
     return render_template("table.html", title="Каюта", color=color, martian_image=martian_image)
+=======
+    result = session.query(Jobs, User).join(
+        User,
+        Jobs.team_leader == User.id
+    )
+    for i in result:
+        print(i)
+    return render_template("index.html", title="Это база", result=result)
+>>>>>>> f80b3e89f58f152c46ecada6a4826b4c8c0ba58f
 
 
 @app.route("/promotion")
@@ -98,6 +123,7 @@ def promotion_image():
     return render_template("promotion_image.html")
 
 
+<<<<<<< HEAD
 @app.route("/mars_gallery", methods=["GET", "POST"])
 def mars_gallery():
     default_images = [
@@ -137,6 +163,8 @@ def member():
     return render_template("member.html", title="Член экипажа", member=random_member)
 
 
+=======
+>>>>>>> f80b3e89f58f152c46ecada6a4826b4c8c0ba58f
 planet_slovar = {
     "Марс": {
         "description": "Эта планета близка к Земле;",
@@ -248,6 +276,7 @@ def answer():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+<<<<<<< HEAD
     if request.method == "POST":
         session = db_session.create_session()
         user = session.query(User).filter(
@@ -260,6 +289,21 @@ def login():
         else:
             return render_template("login.html", title="Вход", message="Пользователь не существует.")
     return render_template("login.html", title="Вход")
+=======
+    login_form = LoginForm()
+    if login_form.validate_on_submit():
+        session = db_session.create_session()
+        user = session.query(User).filter(
+            User.email == login_form.email.data
+        ).first()
+        if user and user.check_password(login_form.password.data):
+            login_user(user, login_form.remember_me.data)
+            return redirect("/")
+        else:
+            return render_template("login.html", form=login_form,
+                                   message="Пользователь не существует.")
+    return render_template("login.html", form=login_form)
+>>>>>>> f80b3e89f58f152c46ecada6a4826b4c8c0ba58f
 
 
 @app.route("/registration", methods=["GET", "POST"])
@@ -290,6 +334,7 @@ def logout():
     return redirect("/")
 
 
+<<<<<<< HEAD
 @app.route("/users_show/<int:user_id>")
 def users_show(user_id):
     api_key = "f3a0fe3a-b07e-4840-a1da-06f18b2ddf13"
@@ -434,6 +479,27 @@ def delete_department(dept_id):
         session.delete(dept)
         session.commit()
     return redirect("/departments")
+=======
+@app.route("/addjob", methods=["GET", "POST"])
+@login_required
+def add_job():
+    jobs_form = JobsForm()
+    if jobs_form.validate_on_submit():
+        db_sess = db_session.create_session()
+        new_job = Jobs()
+        new_job.job = jobs_form.job.data
+        new_job.team_leader = jobs_form.team_leader.data
+        new_job.work_size = jobs_form.work_size.data
+        new_job.collaborators = jobs_form.collaborators.data
+        if jobs_form.is_finished.data:
+            new_job.is_finished = 1
+        else:
+            new_job.is_finished = 0
+        db_sess.add(new_job)
+        db_sess.commit()
+        return redirect("/")
+    return render_template("addjob.html", form=jobs_form, title="Adding a job")
+>>>>>>> f80b3e89f58f152c46ecada6a4826b4c8c0ba58f
 
 
 @app.route("/load_photo", methods=['POST', 'GET'])
@@ -443,7 +509,12 @@ def load_photo():
     else:
         f = request.files['file']
         try:
+<<<<<<< HEAD
             f.save("static/images/temp_file.png")
+=======
+            with open("/static/images/temp_file.png", mode="wb") as fili:
+                fili.save(f)
+>>>>>>> f80b3e89f58f152c46ecada6a4826b4c8c0ba58f
         except Exception as e:
             print(e)
         return render_template("load_photo.html")
