@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Распределение астронавтов по каютам</h2>
+<ul class="list-group">
+{% for astronaut in astronauts %}
+    <li class="list-group-item">
+        {% set cabin_number = loop.index %}
+        Каюта №{{ cabin_number }}: {{ astronaut }}
+        {% if loop.first %} (капитан){% endif %}
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}

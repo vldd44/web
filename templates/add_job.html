@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Добавить работу</h2>
+<form method="post">
+    <div class="mb-3">
+        <label>Название работы</label>
+        <input type="text" name="job" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Тиимлидер</label>
+        <input type="number" name="team_leader" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Объём работы (часы)</label>
+        <input type="number" name="work_size" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Участники</label>
+        <input type="text" name="collaborators" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label>Дата начала</label>
+        <input type="date" name="start_date" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label>Дата окончания</label>
+        <input type="date" name="end_date" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label>
+            <input type="checkbox" name="is_finished"> Завершена
+        </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+</form>
+{% endblock %}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Анкета на Марс</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Анкета для полета на Марс</h1>
+
+        <form action="/apply" method="post">
+            <h2>Личные данные</h2>
+
+            <div class="mb-3">
+                <label class="form-label">Фамилия</label>
+                <input type="text" class="form-control" name="last_name" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Имя</label>
+                <input type="text" class="form-control" name="first_name" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" required>
+            </div>
+
+            <h2>О себе</h2>
+
+            <div class="mb-3">
+                <label class="form-label">Образование</label>
+                <input type="text" class="form-control" name="education" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Основная профессия</label>
+                <select class="form-select" name="profession" required>
+                    <option value="">Выберите профессию</option>
+                    <option value="инженер-исследователь">Инженер-исследователь</option>
+                    <option value="пилот">Пилот</option>
+                    <option value="строитель">Строитель</option>
+                    <option value="экзобиолог">Экзобиолог</option>
+                    <option value="врач">Врач</option>
+                    <option value="инженер по терраформированию">Инженер по терраформированию</option>
+                    <option value="климатолог">Климатолог</option>
+                    <option value="специалист по радиационной защите">Специалист по радиационной защите</option>
+                    <option value="астрогеолог">Астрогеолог</option>
+                    <option value="гляциолог">Гляциолог</option>
+                    <option value="инженер жизнеобеспечения">Инженер жизнеобеспечения</option>
+                    <option value="метеоролог">Метеоролог</option>
+                    <option value="оператор марсохода">Оператор марсохода</option>
+                    <option value="киберинженер">Киберинженер</option>
+                    <option value="штурман">Штурман</option>
+                    <option value="пилот дронов">Пилот дронов</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Пол</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" value="мужской" required>
+                    <label class="form-check-label">Мужской</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" value="женский" required>
+                    <label class="form-check-label">Женский</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" value="другой" required>
+                    <label class="form-check-label">Другой</label>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Почему вы хотите лететь на Марс?</label>
+                <textarea class="form-control" name="motivation" rows="4" required></textarea>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input class="form-check-input" type="checkbox" name="stay_on_mars">
+                <label class="form-check-label">Я готов остаться на Марсе навсегда</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Отправить заявку</button>
+            <button type="reset" class="btn btn-secondary">Очистить</button>
+        </form>
+    </div>
+</body>
+</html>

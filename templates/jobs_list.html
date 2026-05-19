@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Список работ</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Тимлидер</th>
+            <th>Объём</th>
+            <th>Участники</th>
+            <th>Завершена</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for job in jobs %}
+        <tr>
+            <td>{{ job.id }}</td>
+            <td>{{ job.job }}</td>
+            <td>{{ job.team_leader }}</td>
+            <td>{{ job.work_size }}</td>
+            <td>{{ job.collaborators }}</td>
+            <td>{{ "Да" if job.is_finished else "Нет" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="/add_job" class="btn btn-primary">Добавить работу</a>
+{% endblock %}

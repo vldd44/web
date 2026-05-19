@@ -1,0 +1,35 @@
+body {
+    background-color: #f5f5f5;
+}
+
+.container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #c1440e;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+h2 {
+    color: #666;
+    font-size: 1.5rem;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #c1440e;
+    padding-bottom: 10px;
+}
+
+.btn-primary {
+    background-color: #c1440e;
+    border-color: #c1440e;
+}
+
+.btn-primary:hover {
+    background-color: #a13a0c;
+    border-color: #a13a0c;
+}

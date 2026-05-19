@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Иван",
+    "surname": "Петров",
+    "photo": "images/mars.png",
+    "professions": ["пилот", "инженер"]
+  },
+  {
+    "name": "Анна",
+    "surname": "Сидорова",
+    "photo": "images/mars_new.png",
+    "professions": ["врач", "биолог"]
+  },
+  {
+    "name": "Алексей",
+    "surname": "Козлов",
+    "photo": "images/sci.png",
+    "professions": ["инженер-строитель", "механик"]
+  },
+  {
+    "name": "Мария",
+    "surname": "Иванова",
+    "photo": "images/ing.png",
+    "professions": ["штурман", "математик"]
+  }
+]

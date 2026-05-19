@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col answer">
+            Фамилия: {{surname}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col answer">
+            Имя: {{name}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col answer">
+            Образование: {{education}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col answer">
+            Профессия: {{profession}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col answer">
+            Пол: {{sex}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col answer">
+            Мотивация: motivation
+        </div>
+    </div>
+    <div class="row">
+        <div class="col answer">
+            Готовы остаться на Марсе? {{ready}}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

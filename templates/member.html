@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Член экипажа</h2>
+<div class="card" style="width: 18rem;">
+    <img src="{{url_for('static', filename=member.photo)}}" class="card-img-top" alt="{{ member.name }}">
+    <div class="card-body">
+        <h5 class="card-title">{{ member.surname }} {{ member.name }}</h5>
+        <p class="card-text">
+            <strong>Специальности:</strong>
+        <ul>
+        {% for prof in member.professions|sort %}
+            <li>{{ prof }}</li>
+        {% endfor %}
+        </ul>
+        </p>
+    </div>
+</div>
+{% endblock %}

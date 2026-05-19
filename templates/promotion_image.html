@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Колонизация</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        .custom_alert{
+            font-weight: bolder;
+            font-size: 25px;
+            padding-left: 0;
+            padding-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<h1 style="color: red;">Жди нас, Марс!</h1>
+<p>
+    <img src="{{ url_for('static', filename='images/mars.png') }}"
+         alt="здесь могла быть ваша реклама"
+         width="440" height="440">
+</p>
+<div class="alert alert-dark custom_alert">
+    Человечество вырастает из детства.
+</div>
+<div class="alert alert-success custom_alert">
+    Человечеству мала одна планета.
+</div>
+<div class="alert alert-dark custom_alert">
+    Мы сделаем обитаемыми безжизненные пока планеты.
+</div>
+<div class="alert alert-warning custom_alert">
+    И начнем с Марса!
+</div>
+<div class="alert alert-danger custom_alert">
+    Присоединяйся!
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+</html>

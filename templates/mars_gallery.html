@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Галерея Марсианских пейзажей</h2>
+
+<form method="post" enctype="multipart/form-data" class="mb-4">
+    <div class="input-group">
+        <input type="file" class="form-control" name="file" accept="image/*">
+        <button class="btn btn-primary" type="submit">Загрузить</button>
+    </div>
+</form>
+
+{% if images %}
+<div id="marsCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        {% for i in range(images|length) %}
+        <button type="button" data-bs-target="#marsCarousel" data-bs-slide-to="{{ i }}" {% if i == 0 %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ i + 1 }}"></button>
+        {% endfor %}
+    </div>
+    <div class="carousel-inner">
+        {% for image in images %}
+        <div class="carousel-item {% if loop.first %}active{% endif %}">
+            <img src="{{url_for('static', filename=image)}}" class="d-block w-100" alt="Марс {{ loop.index }}" style="height: 60vh; object-fit: cover;">
+        </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#marsCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#marsCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+{% else %}
+<p>Загрузите изображения для галереи.</p>
+{% endif %}
+{% endblock %}

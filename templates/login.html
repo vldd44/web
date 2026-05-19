@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Вход</h2>
+{% if message %}
+<div class="alert alert-danger">{{ message }}</div>
+{% endif %}
+<form method="post">
+    <div class="mb-3">
+        <label>Email</label>
+        <input type="email" name="email" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Пароль</label>
+        <input type="password" name="password" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>
+            <input type="checkbox" name="remember_me"> Запомнить
+        </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Войти</button>
+    <a href="/registration" class="btn btn-secondary">Зарегистрироваться</a>
+</form>
+{% endblock %}

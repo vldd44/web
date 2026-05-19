@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+<form method="post">
+    <div class="mb-3">
+        <label>Название департамента</label>
+        <input type="text" name="title" class="form-control" value="{{ department.title if department else '' }}" required>
+    </div>
+    <div class="mb-3">
+        <label>Руководитель (ID)</label>
+        <input type="number" name="chief" class="form-control" value="{{ department.chief if department else '' }}" required>
+    </div>
+    <div class="mb-3">
+        <label>Участники (через запятую)</label>
+        <input type="text" name="members" class="form-control" value="{{ department.members if department else '' }}">
+    </div>
+    <div class="mb-3">
+        <label>Email</label>
+        <input type="email" name="email" class="form-control" value="{{ department.email if department else '' }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a href="/departments" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}

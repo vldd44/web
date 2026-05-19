@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+<form method="post">
+    <div class="mb-3">
+        <label>Название работы</label>
+        <input type="text" name="job" class="form-control" value="{{ job.job if job else '' }}" required>
+    </div>
+    <div class="mb-3">
+        <label>Тиимлидер</label>
+        <input type="number" name="team_leader" class="form-control" value="{{ job.team_leader if job else '' }}" required>
+    </div>
+    <div class="mb-3">
+        <label>Объём работы (часы)</label>
+        <input type="number" name="work_size" class="form-control" value="{{ job.work_size if job else '' }}" required>
+    </div>
+    <div class="mb-3">
+        <label>Участники</label>
+        <input type="text" name="collaborators" class="form-control" value="{{ job.collaborators if job else '' }}">
+    </div>
+    <div class="mb-3">
+        <label>
+            <input type="checkbox" name="is_finished" {% if job and job.is_finished %}checked{% endif %}> Завершена
+        </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+{% endblock %}
